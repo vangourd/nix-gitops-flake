@@ -1,9 +1,12 @@
 # nix-gitops-flake
 
-This repository demonstrates a minimal GitOps setup that uses `age-nix` for
-local secrets management. The example is intended for a single machine where
-you want to store encrypted files in your repository without relying on an
-external secrets provider.
+This repository contains a small **Rust-based GitOps agent** and example
+configuration. The agent periodically pulls a Nix flake from an upstream
+repository and applies it to your system. A key feature is local secrets
+management using `age-nix`, so you can keep encrypted files under version
+control without relying on an external provider. The example is intended for a
+single machine but can be extended to work with `sops-nix` and Vault for more
+complex deployments.
 
 ## Using age-nix
 
