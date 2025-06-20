@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo="$1"
+ref="$2"
+workdir=/var/lib/gitops
+
+if [ ! -d "$workdir" ]; then
+  git clone "$repo" "$workdir"
+else
+  git -C "$workdir" fetch origin
+fi
+
+git -C "$workdir" fetch --tags origin
+# Try to track the branch if it exists; otherwise checkout the tag
+if git -C "$workdir" rev-parse --verify "origin/$ref" >/dev/null 2>&1; then
+  git -C "$workdir" checkout -B "$ref" "origin/$ref"
+else
+  git -C "$workdir" checkout "$ref"
+fi
+
+nixos-rebuild switch --flake "$workdir#$(hostname)"
+
