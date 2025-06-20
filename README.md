@@ -68,7 +68,6 @@ complex deployments.
 
 With this setup your system has local control over secret decryption while
 keeping the encrypted data in version control.
-
 ### Using Vault as a secrets provider
 
 `sops-nix` can pull decryption keys from Vault. Configure the Vault
